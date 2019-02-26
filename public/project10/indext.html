@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+		
+		<script>
+			$(document).ready(function() {
+
+				$('#submit').click(function(e) {
+					e.preventDefault();
+					var country = $('#country').val();
+					var university_name = $('#university_name').val();
+
+					$(".error").remove();
+
+					if (country.length < 1) {
+						$('#country').after('<span class="error">This field is required</span>');
+					}
+					
+					
+          var univAPI ="http://universities.hipolabs.com/search?country="+ country ;
+					
+					if (university_name.length > 0) {
+						univAPI = univAPI + "&name="+university_name;
+					}
+ 
+    $.getJSON (univAPI).done(function(data){
+			
+			count_data = "There are <span style='color:green;'>" + data.length + "</span> universities in " + country
+		$('#total_cnt').html(count_data)	     
+	table_data = "<table class='table table-bordered table-striped table-hover'><tr><th>University</th><th>Website</th></tr>"    
+
+			for (var i = 0; i < data.length; i++) {
+    console.log(data[i].name);	
+	table_data = table_data + "<tr><td>"+data[i].name+"</td><td><a href='"+data[i].web_pages[0]+"' target='_blank'>"+data[i].web_pages[0]+"</a></td></tr>"
+}
+				table_data = table_data + "</table>"
+		$('#resultsTable').html(table_data )	
+      
+});
+
+					
+					
+					
+					
+					
+				});
+
+			});
+			
+		</script>
+		<style>
+			
+				form label {
+					display: inline-block;
+					width: 200px;
+				}
+
+				form div {
+					margin-bottom: 10px;
+				}
+
+				.error {
+					color: red;
+					margin-left: 5px;
+				}
+
+				label.error {
+					display: inline;
+				}
+				
+		</style>
+
+	</head>
+	
+	<body>
+		<div class="container">
+				<div class='row'>
+					<div class='col-lg-12'>
+							<h2>Search For Universities:</h2>
+							<form id="first_form" method="post" action="">
+								<div class="form-group">
+									<label for="country">Country:</label>
+									<input type="text" class="form-control" id="country" name="country"></input>
+								</div>
+								<div class="form-group">
+									<label for="university_name">University Name:</label>
+									<input type="text" class="form-control" id="university_name" name="university_name"></input>
+								</div>
+								<div>
+									<input type="submit" id="submit" class="btn btn-warning" value="Search" />
+								</div>
+							</form>
+					
+							
+					</div>
+				
+		
+			</div>
+		<div class='row'>
+			<h2 id="total_cnt"></h2>
+			<div class='col-lg-12' id="resultsTable">
+
+
+
+
+
+
+
+			</div>
+
+		</div>
+	
+	
+		</div>	
+	</body>
+	
+</html>
+

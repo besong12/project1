@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        
+        <script>
+            $(document).ready(function() {
+
+                $('#submit').click(function(e) {
+                  e.preventDefault();
+                  var currency = $('#currency').val();
+                    
+
+                   
+  var exchangeratesapi ="https://api.exchangeratesapi.io/latest?base="+currency ;
+    $.getJSON(exchangeratesapi).done(function(data){
+    
+    console.log(data.base); 
+            $('#USD').html(data.rates.USD)
+            $('#ISK').html(data.rates.ISK)
+            $('#CAD').html(data.rates.CAD)
+            $('#MXN').html(data.rates.MXN)
+            $('#AUD').html(data.rates.AUD)
+       
+            
+           
+      
+
+      
+});
+
+                    
+                    
+                    
+                    
+                    
+                });
+
+            });
+            
+        </script>
+        <style>
+            
+                form label {
+                    display: inline-block;
+                    width: 200px;
+                }
+
+                form div {
+                    margin-bottom: 10px;
+                }
+
+                .error {
+                    color: red;
+                    margin-left: 5px;
+                }
+
+                label.error {
+                    display: inline;
+                }
+                
+        </style>
+
+    </head>
+    
+    <body>
+        <div class="container">
+                <div class='row'>
+                    <div class='col-lg-12'>
+                            <h2>Search For ExchangeRates:</h2>
+                            
+                       <form id="first_form" method="post" action="">
+                                <div class="form-group">
+                                    <label for="exchangerates"></label>
+                                    <input type="text" class="form-control" id="currency" name="currency"></input>
+                                </div>
+                                <div>
+                                    <input type="submit" id="submit" class="btn btn-success" value="Search" />
+                                </div>
+                            </form>
+                  
+                                </div>
+                            </form>
+                    <table class='table table-bordered table-striped table-hover' style="width:300px;">
+                        <tr><td>USD</td><td id="USD"></td></tr>
+                        <tr><td>ISK</td><td id="ISK"></td></tr>
+                        <tr><td>CAD</td><td id="CAD"></td></tr>
+                      <tr><td>MXN</td><td id="MXN"></td></tr> 
+                        <tr><td>AUD</td><td id="AUD"></td></tr>
+                      
+     
+
+
+                    </table>
+                            
+                    </div>
+                
+        
+            </div>
+        <div class='row'>
+            <h2 id="total_cnt"></h2>
+            <div class='col-lg-12' id="resultsTable">
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+    
+    
+        </div>  
+
+    </body>
+    
+</html><
